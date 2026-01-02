@@ -15,13 +15,11 @@ WHERE l1.popularity >
 SELECT l1.track_name,
        l1.artist_names,
        l1.popularity
-FROM liked_tracks l1
-JOIN (
-    SELECT artist_names,
-           AVG(popularity) AS avg_popularity
-    FROM liked_tracks
-    GROUP BY artist_names
-) a
+FROM liked_tracks l1 JOIN 
+       (SELECT artist_names,
+       AVG(popularity) AS avg_popularity
+       FROM liked_tracks
+       GROUP BY artist_names) a
 ON a.artist_names = l1.artist_names
 WHERE l1.popularity > a.avg_popularity;
 
